@@ -23,7 +23,7 @@ jobs:
         run: echo "apply complete"
   terraform-destroy:
     runs-on: ubuntu-latest
-    if: '${{github.event.inputs.action == ''destroy''))'
+    if: '${{github.event.inputs.action == ''destroy''}}'
     steps:
       - name: Destroy the environment
         run: echo "destroy complete"
