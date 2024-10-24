@@ -16,7 +16,7 @@ on:
         required: true
 
 jobs:
-  terraform-apply:
+  -apply:
     runs-on: ubuntu-latest
     
   
@@ -34,22 +34,22 @@ jobs:
         aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
         aws-region: ${{ github.event.inputs.aws_region }}
 
-    - name: Terraform Init
+    - name:  Init
       run: terraform init
-      working-directory: ./terraform
+      working-directory: ./templates
       
     
     - name: Terraform Validate
       run: terraform validate
-      working-directory: ./terraform
+      working-directory: ./templates
 
     - name: Terraform Plan
       run: terraform plan -var instance_name=${{ github.event.inputs.instance_name }} -var aws_region=${{ github.event.inputs.aws_region }} -var instance_type=${{ github.event.inputs.instance_type }} -out=tfplan
-      working-directory: ./terraform
+      working-directory: ./templates
 
     - name: Terraform apply
       run: terraform apply "tfplan"
-      working-directory: ./terraform
+      working-directory: ./templates
 
   terraform-destroy:
     runs-on: ubuntu-latest
@@ -72,15 +72,15 @@ jobs:
         
     - name: Terraform Init
       run: terraform init
-      working-directory: ./terraform
+      working-directory: ./templates
          
     # Destroy plan 
 
     - name: terraform destroy plan
       run: terraform plan -destroy -out=tfplan
-      working-directory: ./terraform
+      working-directory: ./templates
     
     # Destroy
     - name: terraform destroy 
       run:  terraform apply "tfplan"
-      working-directory: ./terraform
+      working-directory: ./templates
