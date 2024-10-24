@@ -23,7 +23,7 @@ jobs:
     if: ${{ github.event.inputs.action == 'apply' }}
     steps:
     
-    - name: Checkout code
+    - name: Apply terraform
       run: echo "apply complete"
       
   terraform-destroy:
