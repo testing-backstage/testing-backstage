@@ -1,16 +1,16 @@
-name: Terraform CI
+name: backstage-test
 on:
   workflow_dispatch:
     inputs:
       instance_name:
         description: 'Name of the AWS Instance'  
-        required: true 
+        required: false 
       aws_region:
         description: 'AWS Region for the instance'
-        required: true
+        required: false
       instance_type:
         description: 'AWS instance type'
-        required: true
+        required: false
       action:
         description: 'Action to perform (apply/destroy)'
         required: true
@@ -18,19 +18,14 @@ on:
 jobs:
   terraform-apply:
     runs-on: ubuntu-latest
-    
-  
     if: ${{ github.event.inputs.action == 'apply' }}
     steps:
-    
     - name: Apply terraform
       run: echo "apply complete"
       
   terraform-destroy:
     runs-on: ubuntu-latest
-
     if: ${{github.event.inputs.action == 'destroy'))
     steps:
-
     - name: Destroy the environment
       run: echo "destroy complete"
